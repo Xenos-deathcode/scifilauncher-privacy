@@ -8,8 +8,8 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      overflow: hidden;
+      min-height: 100%;
+      overflow-x: hidden; /* allow vertical scroll */
       background: #000;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: #e5e5e5;
@@ -70,20 +70,79 @@
       padding-left: 1.2rem;
     }
 
-    .glitch-green {
-      color: #00ff66;
-      text-shadow:
-        0 0 4px rgba(0, 255, 102, 0.7),
-        0 0 10px rgba(0, 255, 102, 0.9),
-        2px 0 2px rgba(255, 0, 0, 0.4),
-        -2px 0 2px rgba(0, 255, 0, 0.4);
-    }
-
     strong {
       color: #00ff66;
       text-shadow:
         0 0 4px rgba(0, 255, 102, 0.5),
         0 0 8px rgba(0, 255, 102, 0.7);
+    }
+
+    /* Glitch effect for green headings, similar to your Compose glitch */
+    .glitch-green {
+      position: relative;
+      display: inline-block;
+      color: #00ff66;
+      text-shadow:
+        0 0 4px rgba(0, 255, 102, 0.7),
+        0 0 10px rgba(0, 255, 102, 0.9);
+      animation: glitch-base 1s infinite linear alternate-reverse;
+    }
+
+    .glitch-green::before,
+    .glitch-green::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+    }
+
+    /* red channel */
+    .glitch-green::before {
+      color: rgba(255, 0, 0, 0.7);
+      animation: glitch-red 0.12s infinite linear alternate-reverse;
+    }
+
+    /* green channel */
+    .glitch-green::after {
+      color: rgba(0, 255, 0, 0.8);
+      animation: glitch-green-shift 0.1s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch-base {
+      0%   { transform: translate(0, 0); }
+      50%  { transform: translate(0.5px, -0.5px); }
+      100% { transform: translate(-0.5px, 0.5px); }
+    }
+
+    @keyframes glitch-red {
+      0% {
+        transform: translate(-1px, -1px);
+        clip-path: inset(0 0 40% 0);
+      }
+      50% {
+        transform: translate(1px, 1px);
+        clip-path: inset(30% 0 0 0);
+      }
+      100% {
+        transform: translate(-2px, 0);
+        clip-path: inset(10% 0 60% 0);
+      }
+    }
+
+    @keyframes glitch-green-shift {
+      0% {
+        transform: translate(1px, 1px);
+        clip-path: inset(60% 0 0 0);
+      }
+      50% {
+        transform: translate(-1px, -1px);
+        clip-path: inset(0 0 20% 0);
+      }
+      100% {
+        transform: translate(2px, 0);
+        clip-path: inset(40% 0 0 0);
+      }
     }
 
     @media (max-width: 600px) {
@@ -100,7 +159,9 @@
 
   <!-- Content -->
   <div class="container">
-    <h1 class="glitch-green">SciFiLauncher – Xenos Privacy Policy</h1>
+    <h1 class="glitch-green" data-text="SciFiLauncher – Xenos Privacy Policy">
+      SciFiLauncher – Xenos Privacy Policy
+    </h1>
     <p class="updated"><strong>Last updated:</strong> 28 March 2026</p>
 
     <p>
@@ -109,7 +170,9 @@
       <a href="mailto:cedalstar@gmail.com">cedalstar@gmail.com</a>.
     </p>
 
-    <h2 class="glitch-green">1. Information we access</h2>
+    <h2 class="glitch-green" data-text="1. Information we access">
+      1. Information we access
+    </h2>
     <p>
       The app runs on your device and does not create an account or ask you to enter personal details.
       It accesses certain system features only to provide launcher and assistant functionality:
@@ -141,7 +204,9 @@
       store your personal data outside your device.
     </p>
 
-    <h2 class="glitch-green">2. How we use the information</h2>
+    <h2 class="glitch-green" data-text="2. How we use the information">
+      2. How we use the information
+    </h2>
     <p>We use the permissions listed above only to:</p>
     <ul>
       <li>show and manage your apps and notifications;</li>
@@ -150,14 +215,18 @@
     </ul>
     <p>We do not sell or rent your personal information.</p>
 
-    <h2 class="glitch-green">3. Third‑party services</h2>
+    <h2 class="glitch-green" data-text="3. Third‑party services">
+      3. Third‑party services
+    </h2>
     <p>
       At this time, SciFiLauncher – Xenos does not integrate third‑party analytics, advertising, or
       tracking SDKs. If we add any third‑party services in the future, we will update this Privacy
       Policy to list them and link to their own privacy policies.
     </p>
 
-    <h2 class="glitch-green">4. Children’s privacy</h2>
+    <h2 class="glitch-green" data-text="4. Children’s privacy">
+      4. Children’s privacy
+    </h2>
     <p>
       SciFiLauncher – Xenos is not directed to children under the age of 13, and we do not knowingly
       collect personal information from children. If you believe a child has provided us with personal
@@ -165,7 +234,9 @@
       so we can delete it.
     </p>
 
-    <h2 class="glitch-green">5. Your choices and controls</h2>
+    <h2 class="glitch-green" data-text="5. Your choices and controls">
+      5. Your choices and controls
+    </h2>
     <p>You can control what the app can access at any time using your device settings:</p>
     <ul>
       <li>
@@ -180,7 +251,9 @@
       but the app can still be used as a basic launcher.
     </p>
 
-    <h2 class="glitch-green">6. Changes to this Privacy Policy</h2>
+    <h2 class="glitch-green" data-text="6. Changes to this Privacy Policy">
+      6. Changes to this Privacy Policy
+    </h2>
     <p>
       We may update this Privacy Policy from time to time. When we do, we will change the “Last updated”
       date at the top of this page. If there are major changes, we may also show a notice inside the app
